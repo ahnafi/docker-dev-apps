@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:12.1
+    container_name: dev-mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: dev-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8765:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    depends_on:
+      - mariadb
+
+volumes:
+  mysql-data:

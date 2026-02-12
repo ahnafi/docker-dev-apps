@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: dev-meili
+    ports:
+      - "7700:7700"
+    volumes:
+      - ./meili_data:/meili_data
+    environment:
+      MEILI_ENV: development
+
+
+volumes:
+  meili-data:      
