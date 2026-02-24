@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  terraria:
+    image: ryshe/terraria:latest
+    container_name: terraria
+    ports:
+      - "7777:7777"
+    volumes:
+      - /mnt/storage/docker/terraria/world:/root/.local/share/Terraria/Worlds
+      - /mnt/storage/docker/terraria/logs:/tshock/logs
+    command: >
+      -world /root/.local/share/Terraria/Worlds/stbworld.wld
+      -autocreate 1
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700M
